@@ -1,0 +1,22 @@
+:host ::ng-deep {
+  .p-dialog {
+  width: 150px;
+  margin: 0 auto 2rem auto;
+  display: block;
+  }
+  .action-button {
+    padding: 7px;
+  }
+  .table-area {
+    padding-top: 30px;
+  }
+  .download-popup {
+    border-radius: 12px;
+    width: 130px;
+    height: 100px;
+
+  }
+  .create-button{
+    background-color:purple;
+  }
+}

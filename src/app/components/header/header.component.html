@@ -1,0 +1,21 @@
+
+<div class="layout-topbar">
+  <a class="layout-topbar-logo" routerLink="">
+      <img src="assets/images/pwoman.png" alt="logo">
+      <span>Antenatal Monitoring System</span>
+  </a>
+
+  <button class="p-link layout-menu-button layout-topbar-button p-trigger" (click)="toggleToShow()" >
+      <i class="pi pi-bars"></i>
+  </button>
+
+
+  <div class="p-link layout-menu-button layout-topbar-button p-trigger">
+      <button class="p-link layout-topbar-button" (click)="menu.toggle($event)">
+          <i class="pi pi-user"></i>
+          <span>Profile</span>
+      </button>
+  </div>
+</div>
+
+<p-menu #menu [popup]="true" [model]="items"></p-menu>

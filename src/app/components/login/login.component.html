@@ -1,0 +1,35 @@
+<section class="login-main">
+
+    <p-card styleClass="left-card">
+      <img src="assets/images/pwoman.png" alt="Image" class="login-image">
+      </p-card>
+
+<p-card styleClass="right-card">
+  <form [formGroup]="formService.loginForm" (ngSubmit)="onLogin()" name="loginForm" >
+  <h2>Antenatal Monitoring System</h2>
+  <h3> Welcome Back!...</h3>
+  <span class="p-float-label p-input-icon-right  login-span" >
+    <i class="pi pi-user "></i>
+    <input id="float-input" type="text"  class="login-form" pInputText  formControlName="username">
+    <label for="float-input">Email</label>
+</span>
+
+<span class="p-float-label login-span" >
+ <p-password  [toggleMask]="true"  [feedback]= false  inputStyleClass="login-form "  formControlName="password"></p-password>
+  <label for="float-input">Password</label>
+</span>
+
+  <button  label="Login" pButton primary  icon="pi pi-lock-open" class="login-button"></button>
+
+</form>
+<div>
+  <a class="forgot-password" routerLink="/password-reset">Forgot password?</a>
+  </div>
+
+</p-card>
+
+
+
+</section>
+
+

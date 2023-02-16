@@ -1,0 +1,93 @@
+<div class="card">
+  <p-toolbar styleClass="p-mb-4">
+      <ng-template pTemplate="left">
+          <button pButton pRipple label="Add New Expected Mother" icon="pi pi-plus" class="p-button-success p-mr-2 create-button" (click)="openNew()"></button>
+      </ng-template>
+
+      <ng-template pTemplate="right">
+        <p-slideMenu #sideMenu [model]="items" styleClass="download-popup" [popup]="true"></p-slideMenu>
+          <button pButton pRipple label="Export Data" icon="pi pi-upload" class="p-button-help" (click)="sideMenu.toggle($event)"></button>
+
+      </ng-template>
+  </p-toolbar>
+  <div  class="table-area">
+  <p-table #dt [value]="mothers"
+   [rows]="10"
+    [resizableColumns]="true"
+    [paginator]="true"
+     [globalFilterFields]="['name', 'telephone']"
+       [rowHover]="true"
+        dataKey="my-table"
+       responsiveLayout="scroll"
+       styleClass="p-datatable-gridlines"
+       columnResizeMode="expand"
+       [rowsPerPageOptions]="[10,25,50]"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+
+      <ng-template pTemplate="caption">
+          <div class="p-d-flex p-ai-center p-jc-between">
+              <h5 class="p-m-0">Manage Admin</h5>
+              <span class="p-input-icon-left">
+                  <i class="pi pi-search"></i>
+                  <input pInputText type="text" (input)="dt.filterGlobal($event.target, 'contains')" placeholder="Search keyword" />
+              </span>
+          </div>
+      </ng-template>
+
+      <ng-template pTemplate="header">
+          <tr>
+             <th pSortableColumn="id">Id <p-sortIcon field="id"></p-sortIcon></th>
+              <th pSortableColumn="name">Full Name <p-sortIcon field="name"></p-sortIcon></th>
+              <th pSortableColumn="telephone">Phone Number <p-sortIcon field="telephone"></p-sortIcon></th>
+              <th pSortableColumn="dateAdded">Date Added <p-sortIcon field="dateAdded"></p-sortIcon></th>
+              <th pSortableColumn="added-by">Added By <p-sortIcon field="added-by"></p-sortIcon></th>
+              <th>Actions</th>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-mothers>
+          <tr>
+            <td>{{mothers?.ExpectedMother?.id}}</td>
+              <td>{{mothers?.ExpectedMother?.name}}</td>
+              <td>{{mothers?.ExpectedMother?.telephone}}</td>
+              <td>{{mothers?.ExpectedMother?.dateAdded | date: 'short'}}</td>
+              <td>{{mothers?.Admin?.name}}</td>
+              <td>
+                  <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-4" (click)="editMother(mothers)"></button>
+                  <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteMother(mothers)"></button>
+              </td>
+          </tr>
+      </ng-template>
+  </p-table>
+</div>
+</div>
+
+<p-dialog [visible]="motherDialog"
+[style]="{width: '450px'}"
+header="Customer Details"
+[dismissableMask]= "false"
+[modal]= "true"
+[closable]="false"
+styleClass="p-fluid">
+  <ng-template pTemplate="content">
+
+      <div class="p-field">
+          <label for="fullName">Full Name</label>
+          <input type="text" pInputText id="name" [(ngModel)]="mother.name" required  />
+          <small class="p-invalid" *ngIf="submitted && !mother.name">Name is required.</small>
+      </div>
+    <div class="p-field">
+      <label for="phoneNumber">Phone Number</label>
+      <input type="text" pInputText id="telephone" [(ngModel)]="mother.telephone" required  />
+      <small class="p-invalid" *ngIf="submitted && !mother.telephone">Phone number is required.</small>
+  </div>
+
+
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+      <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+      <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveMother()"></button>
+  </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
