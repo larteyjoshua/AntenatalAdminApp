@@ -15,7 +15,6 @@ import { ExpectedMotherComponent } from './components/expected-mother/expected-m
 import { AppointmentComponent } from './components/appointment/appointment.component';
 import { CommentComponent } from './components/comment/comment.component';
 import { PasswordResetComponent } from './components/password-reset/password-reset.component';
-import { OtpVerificationComponent } from './components/otp-verification/otp-verification.component';
 import { NewPasswordFormComponent } from './components/new-password-form/new-password-form.component';
 import { ProfileComponent } from './components/profile/profile.component';
 
@@ -53,6 +52,7 @@ import {DialogModule} from 'primeng/dialog';
 import {RadioButtonModule} from 'primeng/radiobutton';
 import {SlideMenuModule} from 'primeng/slidemenu';
 import {ListboxModule} from 'primeng/listbox';
+import {OverlayPanelModule} from 'primeng/overlaypanel';
 
 
 import { ApiService } from './services/api.service';
@@ -60,6 +60,9 @@ import { HeaderComponent } from './components/header/header.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { CommonModule } from '@angular/common';
 import { authInterceptorProviders } from './auth/auth.interceptor';
+import { SummaryCardComponent } from './components/summary-card/summary-card.component';
+import { FullCommentComponent } from './components/full-comment/full-comment.component';
+
 
 
 const materialModules = [
@@ -95,7 +98,8 @@ const materialModules = [
   DialogModule,
   RadioButtonModule,
   SlideMenuModule,
-  ListboxModule
+  ListboxModule,
+  OverlayPanelModule
 ]
 
 @NgModule({
@@ -109,11 +113,12 @@ const materialModules = [
     AppointmentComponent,
     CommentComponent,
     PasswordResetComponent,
-    OtpVerificationComponent,
     NewPasswordFormComponent,
     ProfileComponent,
     HeaderComponent,
-    SidebarComponent
+    SidebarComponent,
+    SummaryCardComponent,
+    FullCommentComponent,
   ],
   imports: [
     BrowserModule,

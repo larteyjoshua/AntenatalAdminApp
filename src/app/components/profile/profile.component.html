@@ -1,1 +1,54 @@
-<p>profile works!</p>
+<section class="container">
+  <p-card styleClass="profile-card">
+    <div class="profile-display">
+      <p-avatar label="{{avatarLetter | uppercase}}" styleClass="p-mr-2" size="xlarge"></p-avatar>
+      <div class="p-field input-margin">
+        <label for="fullName">Full Name</label>
+        <input
+          type="text"
+          pInputText
+          id="name"
+          [(ngModel)]="admin.name"
+          required
+        />
+        <small class="p-invalid" *ngIf="submitted && !admin.name"
+          >Name is required.</small
+        >
+      </div>
+      <div class="p-field input-margin">
+        <label for="email">Email</label>
+        <input
+          type="text"
+          pInputText
+          id="email"
+          [(ngModel)]="admin.email"
+          required
+        />
+        <small class="p-invalid" *ngIf="submitted && !admin.email"
+          >email is required.</small
+        >
+      </div>
+      <div class="p-field input-margin">
+        <label for="phoneNumber">Phone Number</label>
+        <input
+          type="text"
+          pInputText
+          id="telephone"
+          [(ngModel)]="admin.telephone"
+          required
+        />
+        <small class="p-invalid" *ngIf="submitted && !admin.telephone"
+          >Phone number is required.</small
+        >
+      </div>
+      <button
+        (click)="saveAdmin()"
+        label="Update"
+        pButton
+        primary
+        icon="pi pi-user"
+        class="login-button"
+      ></button>
+    </div>
+  </p-card>
+</section>

@@ -42,6 +42,9 @@ export class FormService {
 
 
   recoverPasswordForm: FormGroup = new FormGroup({
+    username: new FormControl({value: '', disabled: true}, [Validators.required, Validators.email, Validators.pattern(
+      '[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,63}$',
+    )]),
     password1: new FormControl('',  [Validators.required, Validators.minLength(8)]),
     password: new FormControl('',  [Validators.required, Validators.minLength(8)])
   });
@@ -49,6 +52,7 @@ export class FormService {
 
   initialRecoverPasswordForm() {
     this.recoverPasswordForm.setValue({
+      username: '',
       password1: '',
       password: ''
     })

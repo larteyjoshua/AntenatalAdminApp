@@ -8,9 +8,9 @@ import { AdminComponent } from './components/admin/admin.component';
 import { ExpectedMotherComponent } from './components/expected-mother/expected-mother.component';
 import { AppointmentComponent } from './components/appointment/appointment.component';
 import { PasswordResetComponent } from './components/password-reset/password-reset.component';
-import { OtpVerificationComponent } from './components/otp-verification/otp-verification.component';
 import { NewPasswordFormComponent } from './components/new-password-form/new-password-form.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { FullCommentComponent } from './components/full-comment/full-comment.component';
 
 const routes: Routes = [
   {
@@ -26,14 +26,12 @@ const routes: Routes = [
       path: 'password-reset',
       component: PasswordResetComponent
     },
+
     {
-      path: 'otp-verification',
-      component: OtpVerificationComponent
-    },
-    {
-      path: 'new-password-form',
+      path: 'new-password/:email',
       component: NewPasswordFormComponent
     },
+
 
     {
       path: 'layout',
@@ -62,7 +60,11 @@ const routes: Routes = [
         {
           path: 'profile',
           component: ProfileComponent
-        }
+        },
+        {
+          path: 'expected-mother-comment/:id',
+          component: FullCommentComponent
+        },
 
       ]
     },

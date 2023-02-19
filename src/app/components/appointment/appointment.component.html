@@ -1,1 +1,283 @@
-<p>appointment works!</p>
+<div class="card">
+  <p-toolbar styleClass="p-mb-4">
+    <ng-template pTemplate="left">
+      <button
+        pButton
+        pRipple
+        label="Create New Antenatal Appointment"
+        icon="pi pi-plus"
+        class="p-button-success p-mr-2 create-button"
+        (click)="openNew()"
+      ></button>
+    </ng-template>
+
+    <ng-template pTemplate="right">
+      <p-slideMenu
+        #sideMenu
+        [model]="items"
+        styleClass="download-popup"
+        [popup]="true"
+      ></p-slideMenu>
+      <button
+        pButton
+        pRipple
+        label="Export Data"
+        icon="pi pi-upload"
+        class="p-button-help"
+        (click)="sideMenu.toggle($event)"
+      ></button>
+    </ng-template>
+  </p-toolbar>
+
+
+  <div class="table-area">
+    <p-table
+      #dt
+      [value]="appointments"
+      [rows]="10"
+      [resizableColumns]="true"
+      [paginator]="true"
+      [globalFilterFields]="['name', 'telephone']"
+      [rowHover]="true"
+      dataKey="my-table"
+      responsiveLayout="scroll"
+      styleClass="p-datatable-gridlines"
+      columnResizeMode="expand"
+      [rowsPerPageOptions]="[10, 25, 50]"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      [showCurrentPageReport]="true"
+    >
+      <ng-template pTemplate="caption">
+        <div class="p-d-flex p-ai-center p-jc-between">
+          <h5 class="p-m-0">Manage Appointment</h5>
+          <span class="p-input-icon-left">
+            <i class="pi pi-search"></i>
+            <input
+              pInputText
+              type="text"
+              (input)="dt.filterGlobal($event.target, 'contains')"
+              placeholder="Search keyword"
+            />
+          </span>
+        </div>
+      </ng-template>
+
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="id">Id <p-sortIcon field="id"></p-sortIcon></th>
+          <th pSortableColumn="name">
+            Full Name <p-sortIcon field="name"></p-sortIcon>
+          </th>
+          <th pSortableColumn="telephone">
+            Phone Number <p-sortIcon field="telephone"></p-sortIcon>
+          </th>
+          <th pSortableColumn="appointed_time">
+            Appointment Time<p-sortIcon field="appointed_time"></p-sortIcon>
+          </th>
+          <th pSortableColumn="appointed_date">
+            appointed_date <p-sortIcon field="appointed_date"></p-sortIcon>
+          </th>
+          <th pSortableColumn="attended">
+            Attended<p-sortIcon field="attended"></p-sortIcon>
+          </th>
+          <th pSortableColumn="appointment_note">
+            Appointment Note<p-sortIcon field="appointment_note"></p-sortIcon>
+          </th>
+          <th pSortableColumn="appointed_set_by">
+            Appointment Created By
+            <p-sortIcon field="appointed_set_by"></p-sortIcon>
+          </th>
+          <th pSortableColumn="dateAdded">
+            Date Created <p-sortIcon field="dateAdded"></p-sortIcon>
+          </th>
+          <th>Actions</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-appointments>
+        <tr>
+          <td>{{ appointments?.Appointment?.id }}</td>
+          <td>{{ appointments?.ExpectedMother?.name }}</td>
+          <td>{{ appointments?.ExpectedMother?.telephone }}</td>
+          <td>{{ appointments?.Appointment?.appointed_time }}</td>
+          <td>{{ appointments?.Appointment?.appointed_date }}</td>
+          <td>{{ appointments?.Appointment?.attended }}</td>
+          <td>{{ appointments?.Appointment?.appointment_note }}</td>
+          <td>{{ appointments?.Admin?.name }}</td>
+          <td>{{ appointments?.Appointment?.dateAdded | date : "short" }}</td>
+
+          <td>
+            <button
+              pButton
+              pRipple
+              icon="pi pi-pencil"
+              class="p-button-rounded p-button-success p-mr-4"
+              (click)="editAppointment(appointments)"
+            ></button>
+            <button
+              pButton
+              pRipple
+              icon="pi pi-trash"
+              class="p-button-rounded p-button-warning"
+              (click)="deleteAppointment(appointments?.Appointment)"
+            ></button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>
+
+<p-dialog
+  [visible]="appointmentDialog"
+  header="Appointment Details"
+  [dismissableMask]="false"
+  [style]="{ width: '35.5vw' }"
+  [breakpoints]="{ '960px': '75vw', '640px': '100vw' }"
+  [modal]="true"
+  [contentStyle]="{
+    height: '30vw',
+    display: 'flex',
+    paddingTop: '20px',
+    flexDirection: 'column'
+  }"
+  [closable]="false"
+  styleClass="p-fluid"
+>
+  <ng-template pTemplate="content">
+    <div class="p-field" *ngIf="editingAppointment">
+      <label for="phoneNumber">Expected Mother</label>
+      <p-dropdown
+        styleClass="dd-width"
+        [options]="mothersList"
+        [(ngModel)]="selectedMother"
+        id="expected_mother_id"
+        optionLabel="name"
+        [filter]="true"
+        filterBy="name"
+        [showClear]="true"
+        placeholder="Select Expected Mother"
+        [required]="true"
+      >
+        <ng-template pTemplate="selectedItem">
+          <div class="country-item country-item-value" *ngIf="selectedMother">
+            <div>{{ selectedMother.name }}</div>
+          </div>
+        </ng-template>
+        <ng-template let-motherList pTemplate="item">
+          <div class="country-item">
+            <div>{{ motherList.name }}</div>
+          </div>
+        </ng-template>
+      </p-dropdown>
+    </div>
+
+    <div
+      class="p-field"
+      style="margin-bottom: 20px"
+      *ngIf="!editingAppointment"
+    >
+      <label for="id">Expected Mother ID</label>
+      <input
+        type="text"
+        pInputText
+        id="id"
+        [(ngModel)]="editingExistedAppointment.ExpectedMother!.id"
+        disabled="true"
+      />
+    </div>
+
+    <div
+      class="p-field"
+      style="margin-bottom: 20px"
+      *ngIf="!editingAppointment"
+    >
+      <label for="fullName">Full Name</label>
+      <input
+        type="text"
+        pInputText
+        id="name"
+        [(ngModel)]="editingExistedAppointment.ExpectedMother!.name"
+        disabled="true"
+      />
+    </div>
+
+
+
+
+    <div class="p-field p-col-12 p-md-4">
+      <label for="disabledays">Antenatal Appointment Date</label>
+      <p-calendar
+        [(ngModel)]="appointedDate"
+        [minDate]="mDate"
+        [readonlyInput]="true"
+        [touchUI]="true"
+        styleClass="date-time"
+        inputId="appointed_date"
+        [required]="true"
+        [defaultDate] = "defaultDate"
+      ></p-calendar>
+    </div>
+
+    <div class="p-field p-col-12 p-md-4">
+      <label for="timeonly">Antenatal Appointment Time</label>
+      <p-calendar
+        [(ngModel)]="appointedTime"
+        [timeOnly]="true"
+        hourFormat="12"
+        [touchUI]="true"
+        inputId="timeonly"
+        inputId="appointed_time"
+        styleClass="date-time"
+        [required]="true"
+      ></p-calendar>
+    </div>
+
+    <div
+    class="p-field"
+    style="margin-bottom: 20px"
+  >
+    <label for="appointment_note">Appointment Note/ Medication</label>
+    <textarea
+      type="text"
+      pInputText
+      id="name"
+      [(ngModel)]="editingExistedAppointment.Appointment!.appointment_note"
+    ></textarea>
+  </div>
+
+    <div class="p-field" class="p-grid" *ngIf="!editingAppointment">
+      <label class="p-mb-3">Attended</label>
+      <div *ngFor="let value of values" class="p-field-checkbox">
+        <p-radioButton
+          [inputId]="value.toString()"
+          name="isActive"
+          id="isActive"
+          [value]="value"
+          [(ngModel)]="editingExistedAppointment.Appointment!.attended"
+        ></p-radioButton>
+        <label [for]="selectedValue">{{ value }}</label>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="footer" style="width: 600px">
+    <button
+      pButton
+      pRipple
+      label="Cancel"
+      icon="pi pi-times"
+      class="p-button-text"
+      (click)="hideDialog()"
+    ></button>
+    <button
+      pButton
+      pRipple
+      label="Save"
+      icon="pi pi-check"
+      class="p-button-text"
+      (click)="saveAppointment()"
+    ></button>
+  </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>

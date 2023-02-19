@@ -1,34 +1,40 @@
 import { Component, OnInit } from '@angular/core';
-import { ConfirmationService, MenuItem } from 'primeng/api';
-import { CommentWithDetails , Comment, Admin} from '../../models/index';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MenuItem, ConfirmationService } from 'primeng/api';
+import { CommentWithDetails, Comment } from 'src/app/models';
 import { ApiService } from 'src/app/services/api.service';
-import { Router } from '@angular/router';
 import { ToastNoticeService } from 'src/app/services/toast-notice.service';
 import { exportPdf, exportExcel } from 'src/app/utils/export-utils';
 
 @Component({
-  selector: 'app-comment',
-  templateUrl: './comment.component.html',
-  styleUrls: ['./comment.component.scss']
+  selector: 'app-full-comment',
+  templateUrl: './full-comment.component.html',
+  styleUrls: ['./full-comment.component.scss']
 })
-export class CommentComponent implements OnInit   {
+export class FullCommentComponent implements OnInit {
+
   items: MenuItem[] = [];
   comments: CommentWithDetails[] = [];
 
   comment: Comment = {};
   columns: any[] = [];
   exportedData:any[] = [];
+  id: number = 0;
 
 
   constructor(
      private apiService: ApiService,
     private router: Router,
     private confirmationService: ConfirmationService,
-    private noticeService: ToastNoticeService){}
+    private noticeService: ToastNoticeService,
+    private activatedRoute: ActivatedRoute){}
 
 
   ngOnInit(): void {
-    this.getData();
+    this.activatedRoute.paramMap.subscribe((paramMap) => {
+      this.id = Number(paramMap.get('id')!);
+    });
+    this.getData(this.id);
 
     this.columns = [
       { header: 'id', dataKey: 'id' },
@@ -58,8 +64,8 @@ export class CommentComponent implements OnInit   {
     ];
   }
 
-  getData() {
-    this.apiService.getAllComments().subscribe((res:any) => {
+  getData(id:number) {
+    this.apiService.getAllCommentsByExpectedMother(id).subscribe((res:any) => {
       console.log('comment', res.body);
      this.comments = res.body;
      this.exportedData =this.comments.map(data => { return  data})
@@ -85,7 +91,7 @@ export class CommentComponent implements OnInit   {
         this.apiService.deleteComment(comment.id).subscribe(
           (res: any) => {
             console.log('res', res.body);
-            this.getData();
+            this.getData(this.id);
             this.noticeService.noticePopup('success', 'Successful', 'Comment Deleted');
           },
           (err) => {

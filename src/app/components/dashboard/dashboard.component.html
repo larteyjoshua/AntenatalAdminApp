@@ -1,1 +1,69 @@
-<p>dashboard works!</p>
+<div class="table-area">
+  <div class="summary-area">
+    <app-summary-card
+      *ngFor="let sum of summary"
+      [icon]="sum.icon"
+      [name]="sum.name"
+      [value]="sum.value"
+    ></app-summary-card>
+  </div>
+
+  <div class="total-visit-calender">
+    <div class="bar-chart">
+      <p-card styleClass="chart-card">
+        <h3 style="display: flex; justify-content: center">
+          Number of Attendance Per Day
+        </h3>
+        <p-chart
+          type="bar"
+          [data]="basicData"
+          [responsive]="true"
+          width = "{{chartWith}}"
+          height = "260px"
+        ></p-chart>
+      </p-card>
+    </div>
+
+    <div class="calender-area">
+      <p-calendar
+        [(ngModel)]="today"
+        height="300px"
+        [inline]="true"
+        [showWeek]="true"
+      ></p-calendar>
+    </div>
+  </div>
+  <div class="comment-area">
+    <div>
+      <p-card styleClass="comment-card">
+        <h2 style="display: flex; justify-content: center">
+          Last Five Comments
+        </h2>
+        <p-card>
+          <div class="comment-display" *ngFor="let comment of comments">
+            <div class="ant-date">
+              <span style="font-weight: bold"
+                >Antenatal Date: {{ comment.Appointment.appointed_date }}</span
+              >
+            </div>
+
+            <div class="comment-p">
+              <p-avatar
+                icon="pi pi-user"
+                styleClass="p-mr-2"
+                size="xlarge"
+              ></p-avatar>
+              <div class="comment-details">
+                <h3 style="line-height: 1px">
+                  {{ comment.ExpectedMother.name }}
+                </h3>
+                <span>{{ comment.Comment.message }}</span>
+                <span>{{ comment.Comment.dateAdded | date : "short" }}</span>
+              </div>
+            </div>
+          </div>
+        </p-card>
+      </p-card>
+    </div>
+  </div>
+</div>

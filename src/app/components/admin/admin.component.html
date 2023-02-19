@@ -15,7 +15,7 @@
    [rows]="10"
     [resizableColumns]="true"
     [paginator]="true"
-     [globalFilterFields]="['name','email', 'telephone']"
+     [globalFilterFields]="['Id','Full Name','Email', 'Phone Number']"
        [rowHover]="true"
         dataKey="my-table"
        responsiveLayout="scroll"
@@ -29,7 +29,7 @@
               <h5 class="p-m-0">Manage Admin</h5>
               <span class="p-input-icon-left">
                   <i class="pi pi-search"></i>
-                  <input pInputText type="text" (input)="dt.filterGlobal($event.target, 'contains')" placeholder="Search keyword" />
+                  <input pInputText type="text" (input)="dt.filterGlobal($event.target , 'contains')" placeholder="Search keyword" />
               </span>
           </div>
       </ng-template>
@@ -66,46 +66,40 @@
 
 <p-dialog [visible]="adminDialog"
 [style]="{width: '450px'}"
-header="Customer Details"
+header="Admin Details"
 [dismissableMask]= "false"
 [modal]= "true"
 [closable]="false"
 styleClass="p-fluid">
   <ng-template pTemplate="content">
 
-      <div class="p-field">
+      <div class="p-field input-margin">
           <label for="fullName">Full Name</label>
           <input type="text" pInputText id="name" [(ngModel)]="admin.name" required  />
           <small class="p-invalid" *ngIf="submitted && !admin.name">Name is required.</small>
       </div>
-      <div class="p-field">
-        <label for="email">email</label>
+      <div class="p-field input-margin">
+        <label for="email">Email</label>
         <input type="text" pInputText id="email" [(ngModel)]="admin.email" required  />
         <small class="p-invalid" *ngIf="submitted && !admin.email">email is required.</small>
     </div>
-    <div class="p-field">
+    <div class="p-field input-margin">
       <label for="phoneNumber">Phone Number</label>
       <input type="text" pInputText id="telephone" [(ngModel)]="admin.telephone" required  />
       <small class="p-invalid" *ngIf="submitted && !admin.telephone">Phone number is required.</small>
   </div>
 
 
-<div class="p-field" *ngIf="false">
+<div class="p-field input-margin" *ngIf="editingAdmin">
 <label for="password">Password</label>
 <p-password  [toggleMask]="true"  id="password" [(ngModel)]="admin.password" required   [feedback]= true ></p-password>
 </div>
 
-      <div class="p-field">
+      <div class="p-field" class="p-grid" *ngIf="!editingAdmin">
           <label class="p-mb-3">Is Active</label>
-          <div class="p-formgrid p-grid">
-              <div class="p-field-radiobutton p-col-6">
-                  <p-radioButton id="isActive1" name="isActive" value= true [(ngModel)]="admin.isActive"></p-radioButton>
-                  <label for="category1">True</label>
-              </div>
-              <div class="p-field-radiobutton p-col-6">
-                  <p-radioButton id="isActive2" name="isActive" value=false [(ngModel)]="admin.isActive"></p-radioButton>
-                  <label for="category2">False</label>
-              </div>
+          <div *ngFor="let value of values" class="p-field-checkbox">
+            <p-radioButton [inputId]="value.toString()" name="isActive" id="isActive" [value]="value" [(ngModel)]="admin.isActive"></p-radioButton>
+            <label [for]="selectedValue">{{value}}</label>
           </div>
       </div>
 

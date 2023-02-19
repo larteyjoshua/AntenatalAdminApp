@@ -9,6 +9,7 @@
   }
   .table-area {
     padding-top: 30px;
+    margin: 20px;
   }
   .download-popup {
     border-radius: 12px;
@@ -18,5 +19,14 @@
   }
   .create-button{
     background-color:purple;
+  }
+  .p-grid {
+    display: flex;
+    gap: 20px;
+  }
+
+  .input-margin {
+    margin-bottom: 20px;
+
   }
 }

@@ -21,7 +21,7 @@
 
   <div  class="table-area" *ngFor="let comment of comments">
   <p-card>
-    <div class="comment-display" [routerLink]="['/layout/expected-mother-comment', comment.ExpectedMother.id]">
+    <div class="comment-display">
       <div class="ant-date"><span style="font-weight: bold;">Antenatal Date: {{comment.Appointment.appointed_date}}</span></div>
 
       <div style="display: flex; flex-direction: row; gap: 20px;">

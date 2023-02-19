@@ -1,0 +1,46 @@
+:host ::ng-deep {
+  .p-dialog {
+  width: 150px;
+  margin: 0 auto 2rem auto;
+  display: block;
+  }
+  .action-button {
+    padding: 7px;
+  }
+  .table-area {
+    padding-top: 30px;
+    margin: 20px;
+  }
+  .download-popup {
+    border-radius: 12px;
+    width: 130px;
+    height: 100px;
+
+  }
+  .create-button{
+    background-color:purple;
+  }
+
+  .dd-width {
+    width: 500px;
+    margin-bottom: 30px;
+  }
+  .appointment-dialog {
+    width: 700px;
+    height: 800px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  .date-time{
+    width: 40vw;
+    margin-bottom: 30px;
+  }
+  .p-grid {
+    display: flex;
+    gap: 20px;
+  }
+
+}
+

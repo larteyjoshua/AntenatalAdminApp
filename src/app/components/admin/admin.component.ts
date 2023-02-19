@@ -16,21 +16,24 @@ export class AdminComponent implements OnInit {
   items: MenuItem[] = [];
   admins: Admin[] = [];
   editingAdmin: boolean =true;
-
   adminDialog: boolean = false;
 
   admin: Admin = {};
   submitted: boolean = false;
   columns: any[] = [];
   exportedData:any[] = [];
+  values:boolean[] = [];
+  selectedValue: boolean = false;
 
   constructor( private apiService: ApiService,
     private router: Router,
     private confirmationService: ConfirmationService,
     private noticeService: ToastNoticeService){}
+
+
   ngOnInit(): void {
     this.getData();
-
+  this.values = [true,false];
     this.columns = [
       { header: 'id', dataKey: 'id' },
       { header: 'Full Name', dataKey: 'name' },
@@ -61,9 +64,9 @@ export class AdminComponent implements OnInit {
   }
 
   getData() {
-    this.apiService.getAdmins().subscribe((data:any) => {
-      console.log('admin', data);
-     this.admins = data;
+    this.apiService.getAdmins().subscribe((res:any) => {
+      console.log('admin', res.body);
+     this.admins = res.body;
      this.exportedData =this.admins.map(data => { return  data})
     },
     err => {
@@ -85,6 +88,9 @@ export class AdminComponent implements OnInit {
     console.log(admin, this.editingAdmin);
     this.admin = { ...admin };
     this.adminDialog = true;
+    if (admin.isActive){
+      this.selectedValue = this.values[0];
+    }
   }
 
 
@@ -97,8 +103,8 @@ export class AdminComponent implements OnInit {
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
         this.apiService.deleteAdmin(admin.id).subscribe(
-          (data: any) => {
-            console.log('res', data);
+          (res: any) => {
+            console.log('res', res.body);
             this.getData();
             this.noticeService.noticePopup('success', 'Successful', 'Admin Deleted');
           },
@@ -125,8 +131,8 @@ export class AdminComponent implements OnInit {
     if (this.admin.id) {
       console.log(this.admin);
       this.apiService.updateAdmin(this.admin).subscribe(
-        (data: any) => {
-          console.log('res', data);
+        (res: any) => {
+          console.log('res', res.body);
           this.getData();
           this.noticeService.noticePopup('success', 'Successful', 'Admin Updated');
         },
@@ -150,8 +156,8 @@ export class AdminComponent implements OnInit {
       }))(this.admin);
       console.log(newAdmin)
       this.apiService.addAdmin(newAdmin).subscribe(
-        (data: any) => {
-          console.log('res', data);
+        (res: any) => {
+          console.log('res', res.body);
         this.getData();
           this.noticeService.noticePopup('success', 'Successful', 'Admin Created');
         },

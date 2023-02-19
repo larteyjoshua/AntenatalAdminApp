@@ -26,7 +26,7 @@
 
       <ng-template pTemplate="caption">
           <div class="p-d-flex p-ai-center p-jc-between">
-              <h5 class="p-m-0">Manage Admin</h5>
+              <h5 class="p-m-0">Manage Expected Mothers</h5>
               <span class="p-input-icon-left">
                   <i class="pi pi-search"></i>
                   <input pInputText type="text" (input)="dt.filterGlobal($event.target, 'contains')" placeholder="Search keyword" />
@@ -39,6 +39,12 @@
              <th pSortableColumn="id">Id <p-sortIcon field="id"></p-sortIcon></th>
               <th pSortableColumn="name">Full Name <p-sortIcon field="name"></p-sortIcon></th>
               <th pSortableColumn="telephone">Phone Number <p-sortIcon field="telephone"></p-sortIcon></th>
+              <th pSortableColumn="birth_date">Date of Birth <p-sortIcon field="birth_date"></p-sortIcon></th>
+              <th pSortableColumn="weight">Weight <p-sortIcon field="weight"></p-sortIcon></th>
+              <th pSortableColumn="height">Height <p-sortIcon field="height"></p-sortIcon></th>
+              <th pSortableColumn="location">Location <p-sortIcon field="location"></p-sortIcon></th>
+              <th pSortableColumn="first_antenatal_visit_date">First Antenatal Vis-t <p-sortIcon field="first_antenatal_visit_date"></p-sortIcon></th>
+              <th pSortableColumn="expected_delivery_date"> Expected Delivery Date<p-sortIcon field="expected_delivery_date"></p-sortIcon></th>
               <th pSortableColumn="dateAdded">Date Added <p-sortIcon field="dateAdded"></p-sortIcon></th>
               <th pSortableColumn="added-by">Added By <p-sortIcon field="added-by"></p-sortIcon></th>
               <th>Actions</th>
@@ -49,6 +55,14 @@
             <td>{{mothers?.ExpectedMother?.id}}</td>
               <td>{{mothers?.ExpectedMother?.name}}</td>
               <td>{{mothers?.ExpectedMother?.telephone}}</td>
+              <td>{{mothers?.ExpectedMother?.birth_date}}</td>
+              <td>{{mothers?.ExpectedMother?.weight}}</td>
+              <td>{{mothers?.ExpectedMother?.height}}</td>
+              <td>{{mothers?.ExpectedMother?.location}}</td>
+              <td>{{mothers?.ExpectedMother?.first_antenatal_visit_date}}</td>
+              <td>{{mothers?.ExpectedMother?.expected_delivery_date}}</td>
+
+
               <td>{{mothers?.ExpectedMother?.dateAdded | date: 'short'}}</td>
               <td>{{mothers?.Admin?.name}}</td>
               <td>
@@ -62,24 +76,96 @@
 </div>
 
 <p-dialog [visible]="motherDialog"
-[style]="{width: '450px'}"
-header="Customer Details"
+[style]="{width: '900px'}"
+header="Expected Mother Details"
 [dismissableMask]= "false"
 [modal]= "true"
 [closable]="false"
+[breakpoints]="{ '960px': '75vw', '640px': '100vw' }"
+[modal]="true"
+[contentStyle]="{
+  height: '30vw',
+  display: 'flex',
+  paddingTop: '20px',
+  flexDirection: 'column'
+}"
 styleClass="p-fluid">
   <ng-template pTemplate="content">
 
-      <div class="p-field">
+      <div class="p-field date-time">
           <label for="fullName">Full Name</label>
           <input type="text" pInputText id="name" [(ngModel)]="mother.name" required  />
           <small class="p-invalid" *ngIf="submitted && !mother.name">Name is required.</small>
       </div>
-    <div class="p-field">
+    <div class="p-field date-time">
       <label for="phoneNumber">Phone Number</label>
       <input type="text" pInputText id="telephone" [(ngModel)]="mother.telephone" required  />
       <small class="p-invalid" *ngIf="submitted && !mother.telephone">Phone number is required.</small>
   </div>
+
+  <div class="basic-inform">
+  <div class="p-field date-time">
+    <label for="Weight">Weight</label>
+    <input type="number" pInputText id="weight" [(ngModel)]="mother.weight" />
+</div>
+
+<div class="p-field date-time">
+  <label for="height">Height</label>
+  <input type="number" pInputText id="height" [(ngModel)]="mother.height" />
+</div>
+
+<div class="p-field date-time">
+  <label for="location">Location</label>
+  <input type="text" pInputText id="telephone" [(ngModel)]="mother.location"  />
+</div>
+</div>
+
+<div class="basic-inform">
+  <div class="p-field p-col-12 p-md-4">
+    <label for="disabledays">Date of Birth</label>
+    <p-calendar
+      [(ngModel)]="birthDate"
+      [readonlyInput]="true"
+      [touchUI]="true"
+      styleClass="date-time"
+      inputId="appointed_date"
+      [required]="true"
+      [defaultDate] = "defaultDate"
+      styleClass="width-setting"
+
+
+    ></p-calendar>
+  </div>
+
+<div class="p-field p-col-12 p-md-4">
+  <label for="disabledays">First Antenatal Visit</label>
+  <p-calendar
+    [(ngModel)]="firstAntenatalVisit"
+    [readonlyInput]="true"
+    [touchUI]="true"
+    styleClass="date-time"
+    inputId="appointed_date"
+    [required]="true"
+    styleClass="width-setting"
+    [defaultDate] = "defaultDate"
+  ></p-calendar>
+</div>
+
+<div class="p-field p-col-12 p-md-4">
+  <label for="disabledays">Expected Delivery Date</label>
+  <p-calendar
+    [(ngModel)]="expectedDelivery"
+    [readonlyInput]="true"
+    [touchUI]="true"
+    styleClass="date-time"
+    inputId="appointed_date"
+    [required]="true"
+    styleClass="width-setting"
+    [defaultDate] = "defaultDate"
+  ></p-calendar>
+</div>
+
+</div>
 
 
   </ng-template>
