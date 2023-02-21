@@ -207,6 +207,7 @@ export class AppointmentComponent implements OnInit {
       appointment_note:
         this.editingExistedAppointment?.Appointment?.appointment_note,
     };
+    console
 
     const updateAppointment: Appointment = {
       id: this.editingExistedAppointment?.Appointment?.id,
@@ -219,6 +220,7 @@ export class AppointmentComponent implements OnInit {
         this.editingExistedAppointment?.Appointment?.appointment_note,
     };
     console.log('newAppointment', newAppointment);
+    console.log('update', updateAppointment);
 
     if (updateAppointment.id) {
       this.apiService.updateAppointment(updateAppointment).subscribe(
