@@ -53,6 +53,8 @@ import {RadioButtonModule} from 'primeng/radiobutton';
 import {SlideMenuModule} from 'primeng/slidemenu';
 import {ListboxModule} from 'primeng/listbox';
 import {OverlayPanelModule} from 'primeng/overlaypanel';
+import {EditorModule} from 'primeng/editor';
+import {MultiSelectModule} from 'primeng/multiselect';
 
 
 import { ApiService } from './services/api.service';
@@ -62,6 +64,7 @@ import { CommonModule } from '@angular/common';
 import { authInterceptorProviders } from './auth/auth.interceptor';
 import { SummaryCardComponent } from './components/summary-card/summary-card.component';
 import { FullCommentComponent } from './components/full-comment/full-comment.component';
+import { SendTextMessageComponent } from './send-text-message/send-text-message.component';
 
 
 
@@ -99,7 +102,9 @@ const materialModules = [
   RadioButtonModule,
   SlideMenuModule,
   ListboxModule,
-  OverlayPanelModule
+  OverlayPanelModule,
+  EditorModule,
+  MultiSelectModule
 ]
 
 @NgModule({
@@ -119,6 +124,7 @@ const materialModules = [
     SidebarComponent,
     SummaryCardComponent,
     FullCommentComponent,
+    SendTextMessageComponent,
   ],
   imports: [
     BrowserModule,

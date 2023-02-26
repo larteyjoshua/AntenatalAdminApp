@@ -1,0 +1,21 @@
+:host ::ng-deep {
+  .table-area {
+    padding-top: 30px;
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 50px;
+  }
+
+  .button-location{
+    padding-top: 30px;
+    display: flex;
+    width: 1209px;
+    justify-content: flex-end;
+
+  }
+
+}
+

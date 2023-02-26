@@ -16,15 +16,17 @@ export interface Admin {
 
 export interface ExpectedMother {
   id?: number;
-  name?: string;
+  first_name?: string;
+  surname?: string;
+  login_pin?: string;
   telephone?: string;
   dateAdded?: Date;
-  weight?: number
-  height?: number
-  birth_date?: string
-  location?:  string
-  first_antenatal_visit_date?:string
-  expected_delivery_date?: string
+  weight?: number;
+  height?: number;
+  birth_date?: string;
+  location?:  string;
+  first_antenatal_visit_date?:string;
+  expected_delivery_date?: string;
 }
 
 export interface ExpectedMotherWithDetails {
@@ -58,7 +60,7 @@ export interface Comment {
 export interface CommentWithDetails {
   Appointment: Appointment;
   Comment: Comment;
-  ExpectedMother: ExpectedMother
+  ExpectedMother: ExpectedMother;
 }
 
 export interface GroupAppointment {
@@ -67,20 +69,20 @@ export interface GroupAppointment {
 }
 
 export interface Summaries {
-  value: number
-  name: string
-  icon: string
+  value: number;
+  name: string;
+  icon: string;
 }
 
 
 
 export interface DashboardSummary {
   summaries?: Summaries[]
-  groupedAppointment?: GroupAppointment
+  groupedAppointment?: GroupAppointment;
 }
 
 export interface RestPasswordResponse {
   message?: string;
-  telephone?: string
+  telephone?: string;
 
 }

@@ -32,11 +32,12 @@ export class CommentComponent implements OnInit   {
 
     this.columns = [
       { header: 'id', dataKey: 'id' },
-      { header: 'Full Name', dataKey: 'name' },
-      { header: 'Email', dataKey: 'email' },
-      { header: 'Telephone', dataKey: 'telephone' },
-      { header: 'Date Added', dataKey: 'dateAdded' },
-      { header: 'Status', dataKey: 'isActive' },
+      { header: 'First Name', dataKey: 'first_name' },
+      { header: 'Surname', dataKey: 'surname' },
+      { header: 'Commented', dataKey: 'comment' },
+      { header: 'Date Commented', dataKey: 'comment_date' },
+      { header: 'Appointment Date', dataKey: 'Appointment_date' },
+      { header: 'Phone Number', dataKey: 'telephone' },
     ]
 
 
@@ -45,7 +46,7 @@ export class CommentComponent implements OnInit   {
         label: 'PDF',
         icon: 'pi pi-file-pdf',
         command: () => {
-         exportPdf(this.exportedData,  this.columns, 'Admins')
+         exportPdf(this.exportedData,  this.columns, 'Comments')
         },
       },
       {
@@ -62,7 +63,17 @@ export class CommentComponent implements OnInit   {
     this.apiService.getAllComments().subscribe((res:any) => {
       console.log('comment', res.body);
      this.comments = res.body;
-     this.exportedData =this.comments.map(data => { return  data})
+     this.exportedData =this.comments.map(data => {
+       return {
+        'id': data.Comment.id,
+        'comment_date': new Date(data.Comment!.dateAdded!).toLocaleString(),
+        'comment': data.Comment.message,
+        'first_name': data.ExpectedMother.first_name,
+        'surname': data.ExpectedMother.surname,
+        'Appointment_date': data.Appointment.appointed_date,
+        'telephone': data.ExpectedMother.telephone
+      }}
+       )
     },
     err => {
       console.log('error',  err)

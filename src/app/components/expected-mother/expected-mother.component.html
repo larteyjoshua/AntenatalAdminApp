@@ -37,12 +37,14 @@
       <ng-template pTemplate="header">
           <tr>
              <th pSortableColumn="id">Id <p-sortIcon field="id"></p-sortIcon></th>
-              <th pSortableColumn="name">Full Name <p-sortIcon field="name"></p-sortIcon></th>
+              <th pSortableColumn="name">First Name <p-sortIcon field="first_name"></p-sortIcon></th>
+              <th pSortableColumn="name">Surname<p-sortIcon field="surname"></p-sortIcon></th>
               <th pSortableColumn="telephone">Phone Number <p-sortIcon field="telephone"></p-sortIcon></th>
               <th pSortableColumn="birth_date">Date of Birth <p-sortIcon field="birth_date"></p-sortIcon></th>
               <th pSortableColumn="weight">Weight <p-sortIcon field="weight"></p-sortIcon></th>
               <th pSortableColumn="height">Height <p-sortIcon field="height"></p-sortIcon></th>
               <th pSortableColumn="location">Location <p-sortIcon field="location"></p-sortIcon></th>
+              <th pSortableColumn="login_pin">Login Pin <p-sortIcon field="login_pin"></p-sortIcon></th>
               <th pSortableColumn="first_antenatal_visit_date">First Antenatal Vis-t <p-sortIcon field="first_antenatal_visit_date"></p-sortIcon></th>
               <th pSortableColumn="expected_delivery_date"> Expected Delivery Date<p-sortIcon field="expected_delivery_date"></p-sortIcon></th>
               <th pSortableColumn="dateAdded">Date Added <p-sortIcon field="dateAdded"></p-sortIcon></th>
@@ -53,12 +55,14 @@
       <ng-template pTemplate="body" let-mothers>
           <tr>
             <td>{{mothers?.ExpectedMother?.id}}</td>
-              <td>{{mothers?.ExpectedMother?.name}}</td>
+              <td>{{mothers?.ExpectedMother?.first_name}}</td>
+              <td>{{mothers?.ExpectedMother?.surname}}</td>
               <td>{{mothers?.ExpectedMother?.telephone}}</td>
               <td>{{mothers?.ExpectedMother?.birth_date}}</td>
               <td>{{mothers?.ExpectedMother?.weight}}</td>
               <td>{{mothers?.ExpectedMother?.height}}</td>
               <td>{{mothers?.ExpectedMother?.location}}</td>
+              <td>{{mothers?.ExpectedMother?.login_pin}}</td>
               <td>{{mothers?.ExpectedMother?.first_antenatal_visit_date}}</td>
               <td>{{mothers?.ExpectedMother?.expected_delivery_date}}</td>
 
@@ -90,13 +94,21 @@ header="Expected Mother Details"
   flexDirection: 'column'
 }"
 styleClass="p-fluid">
-  <ng-template pTemplate="content">
 
-      <div class="p-field date-time">
-          <label for="fullName">Full Name</label>
-          <input type="text" pInputText id="name" [(ngModel)]="mother.name" required  />
-          <small class="p-invalid" *ngIf="submitted && !mother.name">Name is required.</small>
+  <ng-template pTemplate="content">
+    <div class="basic-inform">
+      <div class="p-field date-time width-name">
+          <label for="first_name">First Name</label>
+          <input type="text" pInputText id="first_name" [(ngModel)]="mother.first_name" required  />
+          <small class="p-invalid" *ngIf="submitted && !mother.first_name">First Name is required.</small>
       </div>
+      <div class="p-field date-time width-name">
+          <label for="surname">Surname</label>
+          <input type="text" pInputText id="surname" [(ngModel)]="mother.surname" required  />
+          <small class="p-invalid" *ngIf="submitted && !mother.surname">Name is required.</small>
+      </div>
+      </div>
+
     <div class="p-field date-time">
       <label for="phoneNumber">Phone Number</label>
       <input type="text" pInputText id="telephone" [(ngModel)]="mother.telephone" required  />

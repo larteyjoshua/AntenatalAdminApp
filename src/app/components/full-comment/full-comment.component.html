@@ -22,14 +22,14 @@
   <div  class="table-area" *ngFor="let comment of comments">
   <p-card>
     <div class="comment-display">
-      <div class="ant-date"><span style="font-weight: bold;">Antenatal Date: {{comment.Appointment.appointed_date}}</span></div>
+      <div class="ant-date"><span style="font-weight: bold;">Antenatal Date: {{comment?.Appointment?.appointed_date}}</span></div>
 
       <div style="display: flex; flex-direction: row; gap: 20px;">
     <p-avatar icon="pi pi-user" styleClass="p-mr-2" size="xlarge"></p-avatar>
     <div class="comment-details">
-      <h3 style="line-height: 1px;">{{comment.ExpectedMother.name}}</h3>
-      <span>{{comment.Comment.message}}</span>
-      <span>{{comment.Comment.dateAdded | date: 'short'}}</span>
+      <h3 style="line-height: 1px;">{{comment.ExpectedMother.first_name}} {{comment.ExpectedMother.surname}}</h3>
+      <span>{{comment?.Comment?.message}}</span>
+      <span>{{comment?.Comment?.dateAdded | date: 'short'}}</span>
     </div>
   </div>
 </div>

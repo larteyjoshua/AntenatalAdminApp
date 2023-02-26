@@ -15,7 +15,7 @@
    [rows]="10"
     [resizableColumns]="true"
     [paginator]="true"
-     [globalFilterFields]="['Id','Full Name','Email', 'Phone Number']"
+     [globalFilterFields]="['admins.id','admins.name','admins.email', 'admins.telephone', 'admins.isActive', 'admins.dateAdded']"
        [rowHover]="true"
         dataKey="my-table"
        responsiveLayout="scroll"
@@ -29,7 +29,7 @@
               <h5 class="p-m-0">Manage Admin</h5>
               <span class="p-input-icon-left">
                   <i class="pi pi-search"></i>
-                  <input pInputText type="text" (input)="dt.filterGlobal($event.target , 'contains')" placeholder="Search keyword" />
+                  <input pInputText type="text" (input)="dt.filterGlobal($event!.target! , 'contains')" placeholder="Search keyword" />
               </span>
           </div>
       </ng-template>

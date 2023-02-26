@@ -37,7 +37,7 @@
       [rows]="10"
       [resizableColumns]="true"
       [paginator]="true"
-      [globalFilterFields]="['name', 'telephone']"
+      [globalFilterFields]="['Id', 'First Name']"
       [rowHover]="true"
       dataKey="my-table"
       responsiveLayout="scroll"
@@ -64,9 +64,12 @@
 
       <ng-template pTemplate="header">
         <tr>
-          <th pSortableColumn="id">Id <p-sortIcon field="id"></p-sortIcon></th>
-          <th pSortableColumn="name">
-            Full Name <p-sortIcon field="name"></p-sortIcon>
+          <th pSortableColumn="Appointment?.id">Id <p-sortIcon field="Appointment?.id"></p-sortIcon></th>
+          <th pSortableColumn="first_name">
+            First Name <p-sortIcon field="first_name"></p-sortIcon>
+          </th>
+          <th pSortableColumn="surname">
+           Surname <p-sortIcon field="surname"></p-sortIcon>
           </th>
           <th pSortableColumn="telephone">
             Phone Number <p-sortIcon field="telephone"></p-sortIcon>
@@ -96,7 +99,8 @@
       <ng-template pTemplate="body" let-appointments>
         <tr>
           <td>{{ appointments?.Appointment?.id }}</td>
-          <td>{{ appointments?.ExpectedMother?.name }}</td>
+          <td>{{ appointments?.ExpectedMother?.first_name }}</td>
+          <td>{{ appointments?.ExpectedMother?.surname }}</td>
           <td>{{ appointments?.ExpectedMother?.telephone }}</td>
           <td>{{ appointments?.Appointment?.appointed_time }}</td>
           <td>{{ appointments?.Appointment?.appointed_date }}</td>
@@ -151,7 +155,7 @@
         [options]="mothersList"
         [(ngModel)]="selectedMother"
         id="expected_mother_id"
-        optionLabel="name"
+        optionLabel="first_name"
         [filter]="true"
         filterBy="name"
         [showClear]="true"
@@ -160,12 +164,12 @@
       >
         <ng-template pTemplate="selectedItem">
           <div class="country-item country-item-value" *ngIf="selectedMother">
-            <div>{{ selectedMother.name }}</div>
+            <div>{{ selectedMother.first_name  }} {{ selectedMother.surname  }}</div>
           </div>
         </ng-template>
         <ng-template let-motherList pTemplate="item">
           <div class="country-item">
-            <div>{{ motherList.name }}</div>
+            <div>{{ motherList.first_name }}  {{ motherList.surname }}</div>
           </div>
         </ng-template>
       </p-dropdown>
@@ -191,15 +195,30 @@
       style="margin-bottom: 20px"
       *ngIf="!editingAppointment"
     >
-      <label for="fullName">Full Name</label>
+      <label for="fullName">First name</label>
       <input
         type="text"
         pInputText
-        id="name"
-        [(ngModel)]="editingExistedAppointment.ExpectedMother!.name"
+        id="first_name"
+        [(ngModel)]="editingExistedAppointment.ExpectedMother!.first_name"
         disabled="true"
       />
     </div>
+
+    <div
+    class="p-field"
+    style="margin-bottom: 20px"
+    *ngIf="!editingAppointment"
+  >
+    <label for="surname">Surname</label>
+    <input
+      type="text"
+      pInputText
+      id="name"
+      [(ngModel)]="editingExistedAppointment.ExpectedMother!.surname"
+      disabled="true"
+    />
+  </div>
 
 
 
@@ -225,7 +244,6 @@
         [timeOnly]="true"
         hourFormat="12"
         [touchUI]="true"
-        inputId="timeonly"
         inputId="appointed_time"
         styleClass="date-time"
         [required]="true"

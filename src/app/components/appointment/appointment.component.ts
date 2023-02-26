@@ -49,7 +49,8 @@ export class AppointmentComponent implements OnInit {
   ) {
     this.editingExistedAppointment = {
       ExpectedMother: {
-        name: '',
+        first_name: '',
+        surname: '',
         id: 0,
       },
       Appointment: { attended: false, appointed_date: '' },
@@ -61,12 +62,15 @@ export class AppointmentComponent implements OnInit {
     this.values = [true, false];
     this.columns = [
       { header: 'id', dataKey: 'id' },
-      { header: 'Full Name', dataKey: 'name' },
-      { header: 'Telephone', dataKey: 'telephone' },
-      { header: 'Antenatal Date', dataKey: 'appointed_date' },
-      { header: 'Antenatal Time', dataKey: 'appointed_time' },
+      { header: 'First Name', dataKey: 'first_name' },
+      { header: 'Surname', dataKey: 'surname' },
+      { header: 'Telephone', dataKey: 'phone_number' },
+      { header: 'Location', dataKey: 'location' },
+      { header: 'Antenatal Date', dataKey: 'appointment_date' },
+      { header: 'Antenatal Time', dataKey: 'appointment_time' },
       { header: 'Attended', dataKey: 'attended' },
-      { header: 'Date Added', dataKey: 'dateAdded' },
+      { header: 'Antenatal Notes', dataKey: 'appointment_note' },
+      { header: 'Date Created', dataKey: 'date_created' },
     ];
 
     this.items = [
@@ -94,7 +98,18 @@ export class AppointmentComponent implements OnInit {
         console.log('appointment', res.body);
         this.appointments = res.body;
         this.exportedData = this.appointments.map((data) => {
-          return data;
+          return {
+            'id':data.Appointment?.id,
+            'first_name':data.ExpectedMother?.first_name,
+            'surname':data.ExpectedMother?.surname,
+            'phone_number':data.ExpectedMother?.telephone,
+            'location':data.ExpectedMother?.location,
+            'appointment_time':data.Appointment?.appointed_time,
+            'appointment_date':data.Appointment?.appointed_date,
+            'appointment_note':data.Appointment?.appointment_note,
+            'attended':data.Appointment?.attended,
+            'date_created': new Date(data.Appointment!.dateAdded!).toLocaleString(),
+        };
         });
       },
       (err) => {

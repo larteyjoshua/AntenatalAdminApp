@@ -55,7 +55,8 @@
               ></p-avatar>
               <div class="comment-details">
                 <h3 style="line-height: 1px">
-                  {{ comment.ExpectedMother.name }}
+                  {{ comment.ExpectedMother.first_name }}
+                  {{ comment.ExpectedMother.surname }}
                 </h3>
                 <span>{{ comment.Comment.message }}</span>
                 <span>{{ comment.Comment.dateAdded | date : "short" }}</span>

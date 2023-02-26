@@ -11,6 +11,7 @@ import { PasswordResetComponent } from './components/password-reset/password-res
 import { NewPasswordFormComponent } from './components/new-password-form/new-password-form.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { FullCommentComponent } from './components/full-comment/full-comment.component';
+import { SendTextMessageComponent } from './send-text-message/send-text-message.component';
 
 const routes: Routes = [
   {
@@ -65,6 +66,12 @@ const routes: Routes = [
           path: 'expected-mother-comment/:id',
           component: FullCommentComponent
         },
+        {
+          path: 'send-text-message',
+          component: SendTextMessageComponent
+        },
+
+
 
       ]
     },

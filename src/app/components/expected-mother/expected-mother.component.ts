@@ -40,10 +40,12 @@ export class ExpectedMotherComponent implements OnInit  {
 
     this.columns = [
       { header: 'id', dataKey: 'id' },
-      { header: 'Full Name', dataKey: 'name' },
+      { header: 'First Name', dataKey: 'first_name' },
+      { header: 'Surname', dataKey: 'surname' },
       { header: 'Telephone', dataKey: 'telephone' },
-      { header: 'Location', dataKey: 'Location' },
+      { header: 'Location', dataKey: 'location' },
       { header: 'Height', dataKey: 'height' },
+      { header: 'Weight', dataKey: 'weight' },
       { header: 'First Antenatal Visit', dataKey: 'first_antenatal_visit_date' },
       { header: 'Expected Delivery Date', dataKey: 'expected_delivery_date' },
       { header: 'Date of Birth', dataKey: 'birth_date' },
@@ -105,7 +107,7 @@ export class ExpectedMotherComponent implements OnInit  {
     console.log(mother);
     this.confirmationService.confirm({
       message:
-        'Are you sure you want to delete ' + mother.ExpectedMother.name + '?',
+        'Are you sure you want to delete ' + mother.ExpectedMother.first_name + ' ' +  mother.ExpectedMother.surname + '?',
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
@@ -146,7 +148,8 @@ export class ExpectedMotherComponent implements OnInit  {
       console.log(this.mother);
       const expectedMother = (({
         id,
-        name,
+        first_name,
+        surname,
         weight,
         height,
         location,
@@ -156,7 +159,8 @@ export class ExpectedMotherComponent implements OnInit  {
         telephone,
       }) => ({
         id,
-        name,
+        first_name,
+        surname,
         telephone,
         weight,
         height,
@@ -178,7 +182,8 @@ export class ExpectedMotherComponent implements OnInit  {
       );
     } else {
       const newMother = (({
-        name,
+        first_name,
+        surname,
         weight,
         height,
         location,
@@ -187,7 +192,8 @@ export class ExpectedMotherComponent implements OnInit  {
         birth_date,
         telephone,
       }) => ({
-        name,
+        first_name,
+        surname,
         weight,
         height,
         location,

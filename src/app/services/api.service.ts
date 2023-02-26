@@ -6,8 +6,8 @@ import { User } from '../models/index';
   providedIn: 'root'
 })
 export class ApiService {
-  // url = 'http://localhost:8000/v1/'
-  url = 'https://antenatal-monitoring-system.onrender.com/v1/'
+   url = 'http://localhost:8000/v1/'
+  // url = 'https://antenatal-monitoring-system.onrender.com/v1/'
   constructor(private http: HttpClient) { }
 
   login(user: User){
@@ -128,6 +128,12 @@ export class ApiService {
      getAllCommentsByExpectedMother(id:number) {
       const comments = this.url + 'comment-expected-mother/' + id;
       return this.http.get(comments,  {observe: 'response'});
+     }
+
+
+     sendTextMessage(object: any){
+      const sendMessage = this.url + 'message/send';
+      return this.http.post(sendMessage, object,  {observe: 'response'});
      }
 
 }
