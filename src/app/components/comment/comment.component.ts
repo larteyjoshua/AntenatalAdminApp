@@ -61,7 +61,6 @@ export class CommentComponent implements OnInit   {
 
   getData() {
     this.apiService.getAllComments().subscribe((res:any) => {
-      console.log('comment', res.body);
      this.comments = res.body;
      this.exportedData =this.comments.map(data => {
        return {
@@ -73,10 +72,9 @@ export class CommentComponent implements OnInit   {
         'Appointment_date': data.Appointment.appointed_date,
         'telephone': data.ExpectedMother.telephone
       }}
-       )
+       );
     },
     err => {
-      console.log('error',  err)
       if(err.status === 403 || 401){
         this.router.navigateByUrl('/login')
       }
@@ -86,7 +84,6 @@ export class CommentComponent implements OnInit   {
 
 
   deleteComment(comment: Comment) {
-    console.log(comment);
     this.confirmationService.confirm({
       message:
         'Are you sure you want to delete Comment ' + comment.id + '?',

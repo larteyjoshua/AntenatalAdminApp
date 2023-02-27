@@ -37,7 +37,6 @@ export class HeaderComponent implements OnInit  {
 }
 
 toggleToShow(){
-  console.log('Menu Clicked')
   this.transferService.buttonClick.next(true)
 }
 

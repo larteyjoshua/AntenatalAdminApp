@@ -76,7 +76,6 @@ export class ExpectedMotherComponent implements OnInit {
   getData() {
     this.apiService.getExpectedMothers().subscribe(
       (res: any) => {
-        console.log('mothers', res.body);
         this.motherData = res.body;
         this.mothers = this.motherData;
         this.exportedData = this.motherData.map((data) => {
@@ -84,7 +83,6 @@ export class ExpectedMotherComponent implements OnInit {
         });
       },
       (err) => {
-        console.log('error', err);
         if (err.status === 403 || 401) {
           this.router.navigateByUrl('/login');
         }
@@ -113,7 +111,6 @@ export class ExpectedMotherComponent implements OnInit {
   }
 
   deleteMother(mother: ExpectedMotherWithDetails) {
-    console.log(mother);
     this.confirmationService.confirm({
       message:
         'Are you sure you want to delete ' +
@@ -137,7 +134,6 @@ export class ExpectedMotherComponent implements OnInit {
               );
             },
             (err) => {
-              console.log('error', err.error.detail);
               this.noticeService.noticePopup(
                 'error',
                 'Failure',
@@ -160,7 +156,6 @@ export class ExpectedMotherComponent implements OnInit {
 
   saveMother() {
     this.editingMother = true;
-    console.log(this.mother);
     this.submitted = true;
     this.mother.first_antenatal_visit_date =
       this.firstAntenatalVisit.toLocaleDateString();
@@ -169,7 +164,6 @@ export class ExpectedMotherComponent implements OnInit {
     this.mother.birth_date = this.birthDate.toLocaleDateString();
 
     if (this.mother.id) {
-      console.log(this.mother);
       const expectedMother = (({
         id,
         first_name,
@@ -195,7 +189,6 @@ export class ExpectedMotherComponent implements OnInit {
       }))(this.mother);
       this.apiService.updateExpectedMother(expectedMother).subscribe(
         (res: any) => {
-          console.log('res', res.body);
           this.getData();
           this.noticeService.noticePopup(
             'success',
@@ -233,7 +226,6 @@ export class ExpectedMotherComponent implements OnInit {
       console.log(newMother);
       this.apiService.addExpectedMother(newMother).subscribe(
         (res: any) => {
-          console.log('res', res.body);
           this.getData();
           this.noticeService.noticePopup(
             'success',
@@ -242,7 +234,6 @@ export class ExpectedMotherComponent implements OnInit {
           );
         },
         (err) => {
-          console.log(err);
           this.noticeService.noticePopup('error', 'Failure', err.error.detail);
         }
       );

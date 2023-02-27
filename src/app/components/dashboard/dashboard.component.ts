@@ -38,7 +38,6 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
   this.getData();
   this.innerWidth = window.innerWidth;
-   console.log(this.innerWidth)
    if (this.innerWidth <= 480){
     this.chartWith  = '300px'
    }  else if (this.innerWidth >= 480 && this.innerWidth <= 1024) {
@@ -51,7 +50,6 @@ export class DashboardComponent implements OnInit {
 
   getData() {
     this.apiService.getDashboardSummaries().subscribe((res:any) => {
-      console.log('summaries', res.body);
      this.dashboardSummary = res.body;
      this.summary = this.dashboardSummary.summaries!;
      this.labels = this.dashboardSummary.groupedAppointment?.date!;
@@ -74,19 +72,18 @@ export class DashboardComponent implements OnInit {
     },
     err => {
       console.log('error',  err)
-      if(err.status === 403 || 401){
+      if(err.status === 401){
         this.router.navigateByUrl('/login')
       }
     });
 
     this.apiService.getAllComments().subscribe((res:any) => {
-      console.log('comment', res.body);
      this.comments = res.body.slice(0,4);
 
     },
     err => {
       console.log('error',  err)
-      if(err.status === 403 || 401){
+      if(err.status === 401){
         this.router.navigateByUrl('/login')
       }
     });

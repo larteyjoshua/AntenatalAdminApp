@@ -90,13 +90,11 @@ export class AppointmentComponent implements OnInit {
         },
       },
     ];
-    console.log(new Date("10:38:39"))
   }
 
   getData() {
     this.apiService.getAppointments().subscribe(
       (res: any) => {
-        console.log('appointment', res.body);
         this.appointmentsData = res.body;
         this.appointments = this.appointmentsData;
         this.exportedData = this.appointmentsData.map((data) => {
@@ -124,14 +122,11 @@ export class AppointmentComponent implements OnInit {
 
     this.apiService.getExpectedMothers().subscribe(
       (res: any) => {
-        console.log('mothers', res.body);
         this.mothersList = res.body.map((x: any) => {
           return x.ExpectedMother;
         });
-        console.log('m', this.mothersList);
       },
       (err) => {
-        console.log('error', err);
         if (err.status === 403 || 401) {
           this.router.navigateByUrl('/login');
         }
@@ -152,7 +147,6 @@ export class AppointmentComponent implements OnInit {
 
   editAppointment(appointment: AppointmentWithDetails) {
     this.editingAppointment = false;
-    console.log(appointment, this.editingAppointment);
     this.editingExistedAppointment = { ...appointment };
     this.appointedDate = new Date(
       this.editingExistedAppointment.Appointment!.appointed_date!
@@ -161,7 +155,6 @@ export class AppointmentComponent implements OnInit {
       this.editingExistedAppointment.Appointment!.appointed_date! + ' ' +
         this.editingExistedAppointment.Appointment!.appointed_time!
     );
-    console.log(this.appointedTime);
     this.appointmentDialog = true;
   }
 
@@ -175,7 +168,6 @@ export class AppointmentComponent implements OnInit {
       accept: () => {
         this.apiService.deleteAppointment(appointment.id).subscribe(
           (res: any) => {
-            console.log('res', res.body);
             this.getData();
             this.noticeService.noticePopup(
               'success',
@@ -224,7 +216,6 @@ export class AppointmentComponent implements OnInit {
       appointment_note:
         this.editingExistedAppointment?.Appointment?.appointment_note,
     };
-    console
 
     const updateAppointment: Appointment = {
       id: this.editingExistedAppointment?.Appointment?.id,
@@ -236,13 +227,11 @@ export class AppointmentComponent implements OnInit {
       appointment_note:
         this.editingExistedAppointment?.Appointment?.appointment_note,
     };
-    console.log('newAppointment', newAppointment);
-    console.log('update', updateAppointment);
+
 
     if (updateAppointment.id) {
       this.apiService.updateAppointment(updateAppointment).subscribe(
         (res: any) => {
-          console.log('res', res.body);
           this.getData();
           this.noticeService.noticePopup(
             'success',
@@ -261,7 +250,6 @@ export class AppointmentComponent implements OnInit {
     } else {
       this.apiService.addAppointment(newAppointment).subscribe(
         (res: any) => {
-          console.log('res', res.body);
           this.getData();
           this.noticeService.noticePopup(
             'success',
@@ -270,7 +258,6 @@ export class AppointmentComponent implements OnInit {
           );
         },
         (err) => {
-          console.log(err);
           this.noticeService.noticePopup('error', 'Failure', err.error.detail);
           if (err.status === 403) {
             this.router.navigateByUrl('/login');

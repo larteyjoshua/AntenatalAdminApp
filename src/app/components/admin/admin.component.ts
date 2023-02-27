@@ -65,7 +65,6 @@ export class AdminComponent implements OnInit {
   getData() {
     this.apiService.getAdmins().subscribe(
       (res: any) => {
-        console.log('admin', res.body);
         this.exportedData = this.admins.map((data) => {
           return data;
         });
@@ -73,7 +72,6 @@ export class AdminComponent implements OnInit {
         this.admins = this.adminsData;
       },
       (err) => {
-        console.log('error', err);
         if (err.status === 403 || 401) {
           this.router.navigateByUrl('/login');
         }
@@ -98,7 +96,6 @@ export class AdminComponent implements OnInit {
   }
 
   deleteAdmin(admin: Admin) {
-    console.log(admin);
     this.confirmationService.confirm({
       message: 'Are you sure you want to delete ' + admin.name + '?',
       header: 'Confirm',
@@ -106,7 +103,6 @@ export class AdminComponent implements OnInit {
       accept: () => {
         this.apiService.deleteAdmin(admin.id).subscribe(
           (res: any) => {
-            console.log('res', res.body);
             this.getData();
             this.noticeService.noticePopup(
               'success',
@@ -115,7 +111,6 @@ export class AdminComponent implements OnInit {
             );
           },
           (err) => {
-            console.log('error', err.error.detail);
             this.noticeService.noticePopup(
               'error',
               'Failure',
@@ -135,14 +130,12 @@ export class AdminComponent implements OnInit {
 
   saveAdmin() {
     this.editingAdmin = true;
-    console.log(this.admin);
     this.submitted = true;
 
     if (this.admin.id) {
       console.log(this.admin);
       this.apiService.updateAdmin(this.admin).subscribe(
         (res: any) => {
-          console.log('res', res.body);
           this.getData();
           this.noticeService.noticePopup(
             'success',
@@ -151,7 +144,6 @@ export class AdminComponent implements OnInit {
           );
         },
         (err) => {
-          console.log('error', err.error.detail);
           this.noticeService.noticePopup('error', 'Failure', err.error.detail);
         }
       );
@@ -163,10 +155,8 @@ export class AdminComponent implements OnInit {
         telephone,
         password,
       }))(this.admin);
-      console.log(newAdmin);
       this.apiService.addAdmin(newAdmin).subscribe(
         (res: any) => {
-          console.log('res', res.body);
           this.getData();
           this.noticeService.noticePopup(
             'success',
@@ -175,7 +165,6 @@ export class AdminComponent implements OnInit {
           );
         },
         (err) => {
-          console.log(err);
           this.noticeService.noticePopup('error', 'Failure', err.error.detail);
         }
       );

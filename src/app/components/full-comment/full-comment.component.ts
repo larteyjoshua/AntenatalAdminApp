@@ -67,7 +67,6 @@ export class FullCommentComponent implements OnInit {
 
   getData(id:number) {
     this.apiService.getAllCommentsByExpectedMother(id).subscribe((res:any) => {
-      console.log('comment', res.body);
      this.comments = res.body;
      this.exportedData =this.comments.map(data => {
       return {
@@ -82,7 +81,6 @@ export class FullCommentComponent implements OnInit {
       );
     },
     err => {
-      console.log('error',  err)
       if(err.status === 403 || 401){
         this.router.navigateByUrl('/login')
       }
@@ -92,7 +90,6 @@ export class FullCommentComponent implements OnInit {
 
 
   deleteComment(comment: Comment) {
-    console.log(comment);
     this.confirmationService.confirm({
       message:
         'Are you sure you want to delete Comment ' + comment.id + '?',
@@ -101,12 +98,10 @@ export class FullCommentComponent implements OnInit {
       accept: () => {
         this.apiService.deleteComment(comment.id).subscribe(
           (res: any) => {
-            console.log('res', res.body);
             this.getData(this.id);
             this.noticeService.noticePopup('success', 'Successful', 'Comment Deleted');
           },
           (err) => {
-            console.log('error', err.error.detail);
             this.noticeService.noticePopup('error', 'Failure', err.error.detail);
           }
         );

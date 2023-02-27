@@ -23,11 +23,20 @@
             "polyfills": [
               "zone.js"
             ],
+            "allowedCommonJsDependencies": [
+              "file-saver",
+              "core-js",
+              "raf",
+              "rgbcolor",
+              "jspdf-autotable",
+              "quill"
+           ],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
               "src/assets"
+
             ],
             "styles": [
               "src/styles.scss",

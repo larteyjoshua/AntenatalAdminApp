@@ -21,7 +21,6 @@ export class LoginComponent {
 
   onLogin() {
     if (this.formService.loginForm.valid) {
-      console.log(this.formService.loginForm.value);
       this.apiService.login(this.formService.loginForm.value).subscribe(
         (res: any) => {
           if (res.status === 200) {
@@ -43,7 +42,6 @@ export class LoginComponent {
           }
         },
         (err) => {
-          console.log('error', err);
           this.noticeService.noticePopup('error', 'Failure', err.error.detail);
         }
       );
