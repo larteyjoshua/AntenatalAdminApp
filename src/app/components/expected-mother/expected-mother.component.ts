@@ -286,12 +286,12 @@ export class ExpectedMotherComponent implements OnInit {
           item.Admin.name?.toLocaleLowerCase().includes(searchValue)
       );
       this.exportedData = this.motherData.map((data) => {
-        return data;
+        return data.ExpectedMother;
       });
     } else {
       this.mothers = this.motherData;
       this.exportedData = this.motherData.map((data) => {
-        return data;
+        return data.ExpectedMother;
       });
     }
   };
