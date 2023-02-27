@@ -19,6 +19,7 @@ import { exportPdf, exportExcel } from 'src/app/utils/export-utils';
 export class AppointmentComponent implements OnInit {
   items: MenuItem[] = [];
   appointments: AppointmentWithDetails[] = [];
+  appointmentsData: AppointmentWithDetails[] = [];
   editingAppointment: boolean = true;
 
   appointmentDialog: boolean = false;
@@ -96,8 +97,9 @@ export class AppointmentComponent implements OnInit {
     this.apiService.getAppointments().subscribe(
       (res: any) => {
         console.log('appointment', res.body);
-        this.appointments = res.body;
-        this.exportedData = this.appointments.map((data) => {
+        this.appointmentsData = res.body;
+        this.appointments = this.appointmentsData;
+        this.exportedData = this.appointmentsData.map((data) => {
           return {
             'id':data.Appointment?.id,
             'first_name':data.ExpectedMother?.first_name,
@@ -290,4 +292,62 @@ export class AppointmentComponent implements OnInit {
       ExpectedMother: {},
     };
   }
+
+
+  searchData = (param: any) => {
+    const searchValue = param.target.value;
+    if (searchValue.length >= 1) {
+      this.appointments = this.appointmentsData.filter(
+        (item) =>
+          item.ExpectedMother?.first_name
+            ?.toLocaleLowerCase()
+            .includes(searchValue) ||
+          item.Appointment?.id === Number(searchValue) ||
+          item.ExpectedMother?.surname
+            ?.toLocaleLowerCase()
+            .includes(searchValue) ||
+          item.ExpectedMother?.telephone
+            ?.toLocaleLowerCase()
+            .includes(searchValue) ||
+          item.Appointment?.appointed_date
+            ?.toLocaleLowerCase()
+            .includes(searchValue) ||
+          item.Appointment?.appointment_note
+            ?.toLocaleLowerCase()
+            .includes(searchValue) ||
+          item.Appointment?.attended == searchValue ||
+          item.Admin?.name?.toLocaleLowerCase().includes(searchValue)
+      );
+      this.exportedData = this.appointments.map((data) => {
+        return {
+          'id':data.Appointment?.id,
+          'first_name':data.ExpectedMother?.first_name,
+          'surname':data.ExpectedMother?.surname,
+          'phone_number':data.ExpectedMother?.telephone,
+          'location':data.ExpectedMother?.location,
+          'appointment_time':data.Appointment?.appointed_time,
+          'appointment_date':data.Appointment?.appointed_date,
+          'appointment_note':data.Appointment?.appointment_note,
+          'attended':data.Appointment?.attended,
+          'date_created': new Date(data.Appointment!.dateAdded!).toLocaleString(),
+      };
+      });
+    } else {
+      this.appointments = this.appointmentsData;
+      this.exportedData = this.appointments.map((data) => {
+        return {
+          'id':data.Appointment?.id,
+          'first_name':data.ExpectedMother?.first_name,
+          'surname':data.ExpectedMother?.surname,
+          'phone_number':data.ExpectedMother?.telephone,
+          'location':data.ExpectedMother?.location,
+          'appointment_time':data.Appointment?.appointed_time,
+          'appointment_date':data.Appointment?.appointed_date,
+          'appointment_note':data.Appointment?.appointment_note,
+          'attended':data.Appointment?.attended,
+          'date_created': new Date(data.Appointment!.dateAdded!).toLocaleString(),
+      };
+      });
+    }
+  };
 }

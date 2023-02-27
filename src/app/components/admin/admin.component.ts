@@ -9,31 +9,32 @@ import { ToastNoticeService } from '../../services/toast-notice.service';
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.scss']
+  styleUrls: ['./admin.component.scss'],
 })
 export class AdminComponent implements OnInit {
-
   items: MenuItem[] = [];
   admins: Admin[] = [];
-  editingAdmin: boolean =true;
+  adminsData: Admin[] = [];
+  editingAdmin: boolean = true;
   adminDialog: boolean = false;
 
   admin: Admin = {};
   submitted: boolean = false;
   columns: any[] = [];
-  exportedData:any[] = [];
-  values:boolean[] = [];
+  exportedData: any[] = [];
+  values: boolean[] = [];
   selectedValue: boolean = false;
 
-  constructor( private apiService: ApiService,
+  constructor(
+    private apiService: ApiService,
     private router: Router,
     private confirmationService: ConfirmationService,
-    private noticeService: ToastNoticeService){}
-
+    private noticeService: ToastNoticeService
+  ) {}
 
   ngOnInit(): void {
     this.getData();
-  this.values = [true,false];
+    this.values = [true, false];
     this.columns = [
       { header: 'id', dataKey: 'id' },
       { header: 'Full Name', dataKey: 'name' },
@@ -41,16 +42,14 @@ export class AdminComponent implements OnInit {
       { header: 'Telephone', dataKey: 'telephone' },
       { header: 'Date Added', dataKey: 'dateAdded' },
       { header: 'Status', dataKey: 'isActive' },
-    ]
-
-
+    ];
 
     this.items = [
       {
         label: 'PDF',
         icon: 'pi pi-file-pdf',
         command: () => {
-         exportPdf(this.exportedData,  this.columns, 'Admins')
+          exportPdf(this.exportedData, this.columns, 'Admins');
         },
       },
       {
@@ -64,17 +63,22 @@ export class AdminComponent implements OnInit {
   }
 
   getData() {
-    this.apiService.getAdmins().subscribe((res:any) => {
-      console.log('admin', res.body);
-     this.admins = res.body;
-     this.exportedData =this.admins.map(data => { return  data})
-    },
-    err => {
-      console.log('error',  err)
-      if(err.status === 403 || 401){
-        this.router.navigateByUrl('/login')
+    this.apiService.getAdmins().subscribe(
+      (res: any) => {
+        console.log('admin', res.body);
+        this.exportedData = this.admins.map((data) => {
+          return data;
+        });
+        this.adminsData = res.body;
+        this.admins = this.adminsData;
+      },
+      (err) => {
+        console.log('error', err);
+        if (err.status === 403 || 401) {
+          this.router.navigateByUrl('/login');
+        }
       }
-    });
+    );
   }
 
   openNew() {
@@ -88,17 +92,15 @@ export class AdminComponent implements OnInit {
     console.log(admin, this.editingAdmin);
     this.admin = { ...admin };
     this.adminDialog = true;
-    if (admin.isActive){
+    if (admin.isActive) {
       this.selectedValue = this.values[0];
     }
   }
 
-
   deleteAdmin(admin: Admin) {
     console.log(admin);
     this.confirmationService.confirm({
-      message:
-        'Are you sure you want to delete ' + admin.name + '?',
+      message: 'Are you sure you want to delete ' + admin.name + '?',
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
@@ -106,11 +108,19 @@ export class AdminComponent implements OnInit {
           (res: any) => {
             console.log('res', res.body);
             this.getData();
-            this.noticeService.noticePopup('success', 'Successful', 'Admin Deleted');
+            this.noticeService.noticePopup(
+              'success',
+              'Successful',
+              'Admin Deleted'
+            );
           },
           (err) => {
             console.log('error', err.error.detail);
-            this.noticeService.noticePopup('error', 'Failure', err.error.detail);
+            this.noticeService.noticePopup(
+              'error',
+              'Failure',
+              err.error.detail
+            );
           }
         );
       },
@@ -134,7 +144,11 @@ export class AdminComponent implements OnInit {
         (res: any) => {
           console.log('res', res.body);
           this.getData();
-          this.noticeService.noticePopup('success', 'Successful', 'Admin Updated');
+          this.noticeService.noticePopup(
+            'success',
+            'Successful',
+            'Admin Updated'
+          );
         },
         (err) => {
           console.log('error', err.error.detail);
@@ -143,26 +157,25 @@ export class AdminComponent implements OnInit {
       );
     } else {
       console.log(this.admin);
-      const newAdmin = (({
-        name,
-        email,
-        telephone,
-        password,
-      }) => ({
+      const newAdmin = (({ name, email, telephone, password }) => ({
         name,
         email,
         telephone,
         password,
       }))(this.admin);
-      console.log(newAdmin)
+      console.log(newAdmin);
       this.apiService.addAdmin(newAdmin).subscribe(
         (res: any) => {
           console.log('res', res.body);
-        this.getData();
-          this.noticeService.noticePopup('success', 'Successful', 'Admin Created');
+          this.getData();
+          this.noticeService.noticePopup(
+            'success',
+            'Successful',
+            'Admin Created'
+          );
         },
         (err) => {
-          console.log(err)
+          console.log(err);
           this.noticeService.noticePopup('error', 'Failure', err.error.detail);
         }
       );
@@ -171,5 +184,24 @@ export class AdminComponent implements OnInit {
     this.admin = {};
   }
 
-
+  searchData = (param: any) => {
+    const searchValue = param.target.value;
+    if (searchValue.length >= 1) {
+      this.admins = this.adminsData.filter(
+        (item) =>
+          item.name?.toLocaleLowerCase().includes(searchValue) ||
+          item.id === Number(searchValue) ||
+          item.email?.toLocaleLowerCase().includes(searchValue) ||
+          item.telephone?.toLocaleLowerCase().includes(searchValue)
+      );
+      this.exportedData = this.admins.map((data) => {
+        return data;
+      });
+    } else {
+      this.admins = this.adminsData;
+      this.exportedData = this.admins.map((data) => {
+        return data;
+      });
+    }
+  };
 }

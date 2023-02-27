@@ -29,7 +29,6 @@
     </ng-template>
   </p-toolbar>
 
-
   <div class="table-area">
     <p-table
       #dt
@@ -49,13 +48,13 @@
     >
       <ng-template pTemplate="caption">
         <div class="p-d-flex p-ai-center p-jc-between">
-          <h5 class="p-m-0">Manage Appointment</h5>
+          <h5 class="p-m-0">Manage Appointments</h5>
           <span class="p-input-icon-left">
             <i class="pi pi-search"></i>
             <input
               pInputText
               type="text"
-              (input)="dt.filterGlobal($event.target, 'contains')"
+              (keyup)="searchData($event)"
               placeholder="Search keyword"
             />
           </span>
@@ -64,12 +63,14 @@
 
       <ng-template pTemplate="header">
         <tr>
-          <th pSortableColumn="Appointment?.id">Id <p-sortIcon field="Appointment?.id"></p-sortIcon></th>
+          <th pSortableColumn="Appointment?.id">
+            Id <p-sortIcon field="Appointment?.id"></p-sortIcon>
+          </th>
           <th pSortableColumn="first_name">
             First Name <p-sortIcon field="first_name"></p-sortIcon>
           </th>
           <th pSortableColumn="surname">
-           Surname <p-sortIcon field="surname"></p-sortIcon>
+            Surname <p-sortIcon field="surname"></p-sortIcon>
           </th>
           <th pSortableColumn="telephone">
             Phone Number <p-sortIcon field="telephone"></p-sortIcon>
@@ -164,12 +165,14 @@
       >
         <ng-template pTemplate="selectedItem">
           <div class="country-item country-item-value" *ngIf="selectedMother">
-            <div>{{ selectedMother.first_name  }} {{ selectedMother.surname  }}</div>
+            <div>
+              {{ selectedMother.first_name }} {{ selectedMother.surname }}
+            </div>
           </div>
         </ng-template>
         <ng-template let-motherList pTemplate="item">
           <div class="country-item">
-            <div>{{ motherList.first_name }}  {{ motherList.surname }}</div>
+            <div>{{ motherList.first_name }} {{ motherList.surname }}</div>
           </div>
         </ng-template>
       </p-dropdown>
@@ -206,22 +209,19 @@
     </div>
 
     <div
-    class="p-field"
-    style="margin-bottom: 20px"
-    *ngIf="!editingAppointment"
-  >
-    <label for="surname">Surname</label>
-    <input
-      type="text"
-      pInputText
-      id="name"
-      [(ngModel)]="editingExistedAppointment.ExpectedMother!.surname"
-      disabled="true"
-    />
-  </div>
-
-
-
+      class="p-field"
+      style="margin-bottom: 20px"
+      *ngIf="!editingAppointment"
+    >
+      <label for="surname">Surname</label>
+      <input
+        type="text"
+        pInputText
+        id="name"
+        [(ngModel)]="editingExistedAppointment.ExpectedMother!.surname"
+        disabled="true"
+      />
+    </div>
 
     <div class="p-field p-col-12 p-md-4">
       <label for="disabledays">Antenatal Appointment Date</label>
@@ -233,7 +233,7 @@
         styleClass="date-time"
         inputId="appointed_date"
         [required]="true"
-        [defaultDate] = "defaultDate"
+        [defaultDate]="defaultDate"
       ></p-calendar>
     </div>
 
@@ -250,18 +250,15 @@
       ></p-calendar>
     </div>
 
-    <div
-    class="p-field"
-    style="margin-bottom: 20px"
-  >
-    <label for="appointment_note">Appointment Note/ Medication</label>
-    <textarea
-      type="text"
-      pInputText
-      id="name"
-      [(ngModel)]="editingExistedAppointment.Appointment!.appointment_note"
-    ></textarea>
-  </div>
+    <div class="p-field" style="margin-bottom: 20px">
+      <label for="appointment_note">Appointment Note/ Medication</label>
+      <textarea
+        type="text"
+        pInputText
+        id="name"
+        [(ngModel)]="editingExistedAppointment.Appointment!.appointment_note"
+      ></textarea>
+    </div>
 
     <div class="p-field" class="p-grid" *ngIf="!editingAppointment">
       <label class="p-mb-3">Attended</label>
