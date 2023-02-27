@@ -38,6 +38,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
   this.getData();
   this.innerWidth = window.innerWidth;
+
    if (this.innerWidth <= 480){
     this.chartWith  = '300px'
    }  else if (this.innerWidth >= 480 && this.innerWidth <= 1024) {
@@ -71,8 +72,7 @@ export class DashboardComponent implements OnInit {
 
     },
     err => {
-      console.log('error',  err)
-      if(err.status === 401){
+      if(err.status === 403 || 401){
         this.router.navigateByUrl('/login')
       }
     });
@@ -82,8 +82,7 @@ export class DashboardComponent implements OnInit {
 
     },
     err => {
-      console.log('error',  err)
-      if(err.status === 401){
+      if(err.status === 403 || 401){
         this.router.navigateByUrl('/login')
       }
     });
