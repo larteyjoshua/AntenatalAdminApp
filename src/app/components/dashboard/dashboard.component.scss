@@ -3,118 +3,110 @@
     padding-top: 30px;
     margin: 20px;
   }
-.summary-area {
-  display: flex;
-  justify-content: center;
-  flex-direction: row;
-  gap: 50px;
-  margin-bottom: 50px;
-  flex-wrap: wrap;
-}
-
-.total-visit-calender {
-  display: flex;
-  justify-content: center ;
-  flex-direction: row;
-  gap: 30px;
-  margin-bottom: 50px;
-  flex-wrap: wrap;
-}
-.chart-card {
-  width: 900px;
-}
-.comment-card {
-  background-color: #FFFF;
-}
-.chart-card {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.comment-display {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-.comment-details {
-  display: flex;
-  justify-content: baseline;
-  align-items: flex-start;
-  flex-direction: column;
-
-}
-.ant-date {
-  display: flex;
-position: relative;
-left: 900px;
-
-}
-.comment-p {
-  display: flex;
-   flex-direction: row;
-    gap: 20px
-}
-
-.chart-p {
-  width: 800px;
-  height: 260px;
-  }
-
-@media (max-width: 480px){
-  .table-area {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-
-  }
-  .comment-details {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    flex-direction: column;
-
-  }
   .summary-area {
     display: flex;
     justify-content: center;
-    flex-direction: column;
-    align-items: center;
-
-  }
-  .comment-card {
-    display: flex;
-    justify-content: center;
-    background-color: #FFFF;
-    min-width: 320px;
-    max-width: 370px;
+    flex-direction: row;
+    gap: 50px;
+    margin-bottom: 50px;
+    flex-wrap: wrap;
   }
 
-  .comment-p {
-    display: flex;
-     flex-direction: column;
-     justify-content: center;
-      gap: 20px
-  }
   .total-visit-calender {
     display: flex;
-    justify-content: center ;
+    justify-content: center;
+    flex-direction: row;
+    gap: 30px;
+    margin-bottom: 50px;
+    flex-wrap: wrap;
+  }
+  .chart-card {
+    width: 900px;
+  }
+  .comment-card {
+    background-color: #ffff;
+  }
+  .chart-card {
+    display: flex;
+    justify-content: center;
     align-items: center;
+  }
+
+  .comment-display {
+    display: flex;
     flex-direction: column;
     gap: 20px;
   }
+  .comment-details {
+    display: flex;
+    justify-content: baseline;
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .ant-date {
+    display: flex;
+    position: relative;
+    left: 900px;
+  }
+  .comment-p {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+  }
 
-  .chart-card {
-    width: 320px;
+  .chart-p {
+    width: 800px;
+    height: 260px;
+  }
+
+  @media (max-width: 480px) {
+    .table-area {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+    }
+    .comment-details {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      flex-direction: column;
+    }
+    .summary-area {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+    }
+    .comment-card {
+      display: flex;
+      justify-content: center;
+      background-color: #ffff;
+      min-width: 320px;
+      max-width: 370px;
+    }
+
+    .comment-p {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 20px;
+    }
+    .total-visit-calender {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .chart-card {
+      width: 320px;
+    }
+  }
+
+  .ant-date {
+    display: flex;
+    position: relative;
+    left: 10px;
   }
 }
-
-.ant-date {
-  display: flex;
-position: relative;
-left: 10px;
-
-}
-
-}
-

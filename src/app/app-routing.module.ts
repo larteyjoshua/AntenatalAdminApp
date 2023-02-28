@@ -12,6 +12,7 @@ import { NewPasswordFormComponent } from './components/new-password-form/new-pas
 import { ProfileComponent } from './components/profile/profile.component';
 import { FullCommentComponent } from './components/full-comment/full-comment.component';
 import { SendTextMessageComponent } from './send-text-message/send-text-message.component';
+import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes = [
   {
@@ -70,10 +71,8 @@ const routes: Routes = [
           path: 'send-text-message',
           component: SendTextMessageComponent
         },
-
-
-
-      ]
+      ],
+      canActivate: [AuthGuard]
     },
 
 ];

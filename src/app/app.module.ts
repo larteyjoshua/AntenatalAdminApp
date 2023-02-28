@@ -65,6 +65,8 @@ import { authInterceptorProviders } from './auth/auth.interceptor';
 import { SummaryCardComponent } from './components/summary-card/summary-card.component';
 import { FullCommentComponent } from './components/full-comment/full-comment.component';
 import { SendTextMessageComponent } from './send-text-message/send-text-message.component';
+import { TokenService } from './services/token.service';
+import { AuthGuard } from './auth/auth.guard';
 
 
 
@@ -136,7 +138,7 @@ const materialModules = [
     HttpClientModule,
     ...materialModules,
   ],
-  providers: [ApiService,MessageService, ConfirmationService, authInterceptorProviders],
+  providers: [ApiService,MessageService, ConfirmationService, authInterceptorProviders, TokenService, AuthGuard],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
