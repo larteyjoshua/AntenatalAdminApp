@@ -6,7 +6,7 @@ import { User } from '../models/index';
   providedIn: 'root'
 })
 export class ApiService {
-  //  url = 'http://localhost:8000/v1/'
+   //url = 'http://localhost:8000/v1/'
    url = 'https://antenatal-monitoring-system.onrender.com/v1/'
   constructor(private http: HttpClient) { }
 
