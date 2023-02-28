@@ -6,7 +6,9 @@ import { Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class TransferService {
-  public buttonClick = new Subject()
+  public buttonClick = new Subject();
+  public loadingSpinner = new Subject();
 
   constructor() { }
+
 }

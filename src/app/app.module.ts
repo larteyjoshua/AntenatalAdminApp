@@ -17,6 +17,7 @@ import { CommentComponent } from './components/comment/comment.component';
 import { PasswordResetComponent } from './components/password-reset/password-reset.component';
 import { NewPasswordFormComponent } from './components/new-password-form/new-password-form.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { SpinnerComponent } from './components/spinner/spinner.component';
 
 import {AutoCompleteModule} from 'primeng/autocomplete';
 import {CalendarModule} from 'primeng/calendar';
@@ -55,6 +56,8 @@ import {ListboxModule} from 'primeng/listbox';
 import {OverlayPanelModule} from 'primeng/overlaypanel';
 import {EditorModule} from 'primeng/editor';
 import {MultiSelectModule} from 'primeng/multiselect';
+
+
 
 
 import { ApiService } from './services/api.service';
@@ -127,6 +130,7 @@ const materialModules = [
     SummaryCardComponent,
     FullCommentComponent,
     SendTextMessageComponent,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,
