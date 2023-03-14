@@ -32,8 +32,8 @@ export class AppointmentComponent implements OnInit {
   selectedMother: ExpectedMother = {};
   appointedDate: Date = new Date();
   appointedTime: Date = new Date();
-  values: boolean[] = [];
-  selectedValue: boolean = false;
+  values: any[] = [];
+  selectedValue: any;
 
   editingExistedAppointment: AppointmentWithDetails;
 
@@ -60,7 +60,7 @@ export class AppointmentComponent implements OnInit {
 
   ngOnInit(): void {
     this.getData();
-    this.values = [true, false];
+    this.values = [{name: 'Yes', value: true}, {name: 'No', value: false}];
     this.columns = [
       { header: 'id', dataKey: 'id' },
       { header: 'First Name', dataKey: 'first_name' },
@@ -111,6 +111,7 @@ export class AppointmentComponent implements OnInit {
             'date_created': new Date(data.Appointment!.dateAdded!).toLocaleString(),
         };
         });
+
       },
       (err) => {
         console.log('error', err);
@@ -155,6 +156,8 @@ export class AppointmentComponent implements OnInit {
       this.editingExistedAppointment.Appointment!.appointed_date! + ' ' +
         this.editingExistedAppointment.Appointment!.appointed_time!
     );
+    this.selectedValue = this.values.find(item => item.value === this.editingExistedAppointment.Appointment?.attended);
+    console.log('va', this.selectedValue)
     this.appointmentDialog = true;
   }
 
@@ -223,13 +226,14 @@ export class AppointmentComponent implements OnInit {
         this.editingExistedAppointment?.Appointment?.appointed_date,
       appointed_time:
         this.editingExistedAppointment?.Appointment?.appointed_time,
-      attended: this.editingExistedAppointment?.Appointment?.attended,
+      attended: this.selectedValue.value,
       appointment_note:
         this.editingExistedAppointment?.Appointment?.appointment_note,
     };
 
 
     if (updateAppointment.id) {
+
       this.apiService.updateAppointment(updateAppointment).subscribe(
         (res: any) => {
           this.getData();

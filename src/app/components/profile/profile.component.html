@@ -22,6 +22,7 @@
           pInputText
           id="email"
           [(ngModel)]="admin.email"
+          disabled="true"
           required
         />
         <small class="p-invalid" *ngIf="submitted && !admin.email"

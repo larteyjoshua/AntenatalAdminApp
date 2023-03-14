@@ -17,9 +17,7 @@ export class ExpectedMotherComponent implements OnInit {
   mothers: ExpectedMotherWithDetails[] = [];
   motherData: ExpectedMotherWithDetails[] = [];
   editingMother: boolean = true;
-
   motherDialog: boolean = false;
-
   mother: ExpectedMother = {};
   submitted: boolean = false;
   columns: any[] = [];
@@ -28,6 +26,8 @@ export class ExpectedMotherComponent implements OnInit {
   expectedDelivery: Date = new Date();
   birthDate: Date = new Date();
   defaultDate: Date = new Date();
+  editingForm: boolean = false;
+
 
   constructor(
     private apiService: ApiService,
@@ -98,6 +98,7 @@ export class ExpectedMotherComponent implements OnInit {
 
   editMother(mother: ExpectedMotherWithDetails) {
     this.editingMother = false;
+    this.editingForm = true;
     this.firstAntenatalVisit = new Date(
       mother!.ExpectedMother!.first_antenatal_visit_date!
     );
@@ -105,7 +106,6 @@ export class ExpectedMotherComponent implements OnInit {
       mother!.ExpectedMother!.expected_delivery_date!
     );
     this.birthDate = new Date(mother!.ExpectedMother!.birth_date!);
-    console.log(mother, this.editingMother);
     this.mother = { ...mother.ExpectedMother };
     this.motherDialog = true;
   }

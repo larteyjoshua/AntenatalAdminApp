@@ -127,11 +127,13 @@
               pRipple
               icon="pi pi-pencil"
               class="p-button-rounded p-button-success p-mr-4"
+              pTooltip="edit Expected Mother"
               (click)="editMother(mothers)"
             ></button>
             <button
               pButton
               pRipple
+              pTooltip="delete Expected Mother"
               icon="pi pi-trash"
               class="p-button-rounded p-button-warning"
               (click)="deleteMother(mothers)"
@@ -197,6 +199,7 @@
         pInputText
         id="telephone"
         [(ngModel)]="mother.telephone"
+        disabled="editingForm"
         required
       />
       <small class="p-invalid" *ngIf="submitted && !mother.telephone"

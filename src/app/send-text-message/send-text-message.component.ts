@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ExpectedMother } from '../models';
 import { Router } from '@angular/router';
-import { ConfirmationService } from 'primeng/api';
 import { ApiService } from '../services/api.service';
 import { ToastNoticeService } from '../services/toast-notice.service';
 
@@ -18,7 +17,6 @@ export class SendTextMessageComponent implements OnInit {
   constructor(
     private apiService: ApiService,
     private router: Router,
-    private confirmationService: ConfirmationService,
     private noticeService: ToastNoticeService
   ) {}
   ngOnInit(): void {
@@ -28,7 +26,13 @@ export class SendTextMessageComponent implements OnInit {
   getData() {
     this.apiService.getExpectedMothers().subscribe(
       (res: any) => {
-        this.mothersList = res.body.map((x: any) => {
+        const filteredMothers = res.body.filter(
+          (k: any) =>
+            new Date(
+              k.ExpectedMother.expected_delivery_date + ' ' + '00:00:00 AM'
+            ) > new Date()
+        );
+        this.mothersList = filteredMothers.map((x: any) => {
           return {
             id: x.ExpectedMother.id,
             name: x.ExpectedMother.first_name + ' ' + x.ExpectedMother.surname,

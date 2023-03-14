@@ -32,6 +32,7 @@
   .delete-button {
     display: flex;
     justify-content: flex-end;
+    flex-direction: row;
   }
   @media (max-width: 480px) {
     .ant-date {
